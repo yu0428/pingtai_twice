@@ -1,7 +1,19 @@
 #html_template定义页面模板，例如登录页面模板是login.html文件。
 [html_template]
 template_dir = html_template
-login = login.html
+login_page = login.html
+register_page = register.html
+error_page =
+
+[login_page]
+login_form_action = portal.py?action=authenticate
+get_register_page = portal.py?action=register
+
+[register_page]
+register_form_action = portal.py?action=create_new_user
+get_login_page = portal.py?action=login
+
+[error_page]
 
 #mysql部分定义数据库连接信息。
 [mysql]
