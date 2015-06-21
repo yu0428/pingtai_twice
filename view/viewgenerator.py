@@ -23,15 +23,14 @@ class ViewGenerator:
                 or "" == self.htmls["error_page"]:
             self.htmls["error_page"] = self.default_error_file
 
-        self.get_pages = {
-            "login_page": lambda: self._read_page_("login_page", "login_page"),
-            "register_page": lambda: self._read_page_("register_page", "register_page"),
-            "error_page": lambda: self._read_page_("error_page", "error_page")
-        }
-
-    def _read_page_(self, file_name, section_name):
+    def read_page(self, file_name, section_name, sec=None):
+        """If sec is not None,sec will be used
+        instead of the section specified by section_name
+        """
         with open(self.htmls[file_name]) as f:
             file_content = f.read()
         confparser = ConfParser()
         template = Template(file_content)
-        return template.substitute(confparser.read_section(section=section_name))
+        if sec is None:
+            sec = confparser.read_section(section=section_name)
+        return template.substitute(sec)
