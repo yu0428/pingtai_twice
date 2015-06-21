@@ -7,20 +7,20 @@ import unittest
 
 
 class TestConfParser(unittest.TestCase):
+
     def test_raise_exception(self):
         """An exception should be raised when html_template doesn't exist or
          when html_template is not a directory.
          """
-        confparser = ConfParser("./test1_conf.txt")
+        confparser = ConfParser()
         with self.assertRaises(ConfException) as excep:
-            confparser.read_html_template()
+            confparser.read_html_template(configuration_file="./test1_conf.txt")
 
-        confparser = ConfParser("./test2_conf.txt")
         with self.assertRaises(ConfException) as excep:
-            confparser.read_html_template()
+            confparser.read_html_template(configuration_file="./test2_conf.txt")
 
     def test_html_template(self):
-        confparser = ConfParser("./test3_conf.txt")
-        res = confparser.read_html_template()
+        confparser = ConfParser()
+        res = confparser.read_html_template(configuration_file="./test3_conf.txt")
         self.assertTrue(isinstance(res, dict))
         self.assertEqual(res["login"], "./html_template/login.html")
